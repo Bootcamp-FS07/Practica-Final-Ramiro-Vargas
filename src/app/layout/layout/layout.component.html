@@ -1,20 +1,24 @@
-<mat-sidenav-container>
-    <mat-sidenav #sidenav [mode]="'over'">
-        <div>
+<mat-sidenav-container class="content">
+    <mat-sidenav #sidenav [mode]="'over'" class="sidenav">
+        <div class="side-navbar-title">
             <h2>Title of navbar</h2>
         </div>
-        <div>
-            <p>Nav Options</p>
+        <div class="side-navbar-body">
+            <mat-nav-list>
+                <a mat-list-item (click)="onHomeClick()">Home</a>
+            </mat-nav-list>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar>
-            <button mat-icon-button (click)="sidenav.toggle()">
-                Button
+    <mat-sidenav-content class="content">
+        <mat-toolbar class="top-navbar">
+            <button mat-menu-item (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-menu-item>
+                Logout
             </button>
         </mat-toolbar>
-        <div>
-            <h1>Content</h1>
+        <div class="container">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
