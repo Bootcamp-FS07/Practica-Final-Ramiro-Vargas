@@ -1,0 +1,21 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav [mode]="'over'">
+        <div>
+            <h2>Title of navbar</h2>
+        </div>
+        <div>
+            <p>Nav Options</p>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                Button
+            </button>
+        </mat-toolbar>
+        <div>
+            <h1>Content</h1>
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
