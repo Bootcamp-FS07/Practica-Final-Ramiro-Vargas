@@ -1,0 +1,23 @@
+@use '../../../styles/colors' as colors;
+
+.post-card{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: colors.$color-secondary;
+    color: white;
+}
+
+mat-card-header{
+    display: flex;
+    box-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.divider {
+    background-color: white;
+    height: 1px;
+}
+

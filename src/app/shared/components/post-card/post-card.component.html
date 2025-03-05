@@ -1,1 +1,23 @@
-<p>post-card works!</p>
+<mat-card class="post-card">
+    <mat-card-header>
+        <mat-card-title>User: {{ user.username}}</mat-card-title>
+        <div *ngIf="isAuthor" class="actions">
+            <button mat-menu-item (click)="openDeleteDialog('500ms', '100ms')">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-divider class="divider"></mat-divider>
+    <mat-card-content>
+        <p>
+            {{postText}}
+        </p>
+    </mat-card-content>
+    <!--<mat-card-actions>
+        <button mat-button>View Profile</button>
+        <button mat-button>Send Message</button>
+    </mat-card-actions>-->
+</mat-card>
