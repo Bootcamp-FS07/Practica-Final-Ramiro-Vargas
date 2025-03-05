@@ -1,0 +1,40 @@
+@use '../../styles/colors.scss' as colors;
+
+.login {
+    background-color: colors.$color-primary;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-body {
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 70%;
+}
+mat-form-field{
+    width: 100%;
+}
+
+button{
+   width: 100%; 
+   height: 10%;
+}
+
+a{
+    padding: 5px;
+}
+
+@media (max-width: 600px) {
+    .login-body {
+        width: 80%;
+        height: 70%;
+    }
+}

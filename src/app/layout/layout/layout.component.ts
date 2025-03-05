@@ -18,4 +18,8 @@ export class LayoutComponent {
   onHomeClick() {
     this.router.navigate(['/home']);
   }
+  onLogout(){
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }
