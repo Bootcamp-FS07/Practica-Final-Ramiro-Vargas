@@ -5,9 +5,6 @@
             <mat-form-field appearance="outline">
               <mat-label>Name</mat-label>
               <input matInput formControlName="name" required>
-              <!--<mat-error *ngIf="userForm.get('name').hasError('required')">
-                El nombre es obligatorio.
-              </mat-error>-->
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
@@ -15,12 +12,6 @@
               <button mat-icon-button matSuffix (click)="hide = !hide" aria-label="Toggle password visibility">
                 <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
-              <!--<mat-error *ngIf="userForm.get('password').hasError('required')">
-                La contraseña es obligatoria.
-              </mat-error>
-              <mat-error *ngIf="userForm.get('password').hasError('minlength')">
-                La contraseña debe tener al menos 6 caracteres.
-              </mat-error>-->
             </mat-form-field>
           
             <button mat-raised-button type="submit">Register</button>

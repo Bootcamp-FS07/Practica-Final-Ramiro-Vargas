@@ -7,6 +7,8 @@ import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { PostService } from '../../../services/post.service';
+import { UpdateFormDialogComponent } from '../update-form-dialog/update-form-dialog/update-form-dialog.component';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-post-card',
@@ -19,12 +21,12 @@ export class PostCardComponent {
   @Input() postText: string = '';
   @Input() user: User = new User(0,"");
   isAuthor = false;
-  constructor(private postService: PostService){
+  constructor(private postService: PostService, private storageService: StorageService){
 
   }
 
   ngOnInit(): void {
-    const userId = JSON.parse(sessionStorage.getItem("user")?? "{}")
+    const userId = this.storageService.getUser();
     this.isAuthor = this.user._id==userId._id
   }
 
@@ -51,6 +53,26 @@ export class PostCardComponent {
             console.log(error);
           }
         })
+      } 
+    });
+  }
+
+  openUpdateDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogref = this.dialog.open(UpdateFormDialogComponent, {
+      width: '250px',
+      data: { 
+        title: 'Update post',
+        textButton1: 'Update',
+        textButton2: 'Cancel',
+        postText: this.postText
+      },
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogref.afterClosed().subscribe(result => {
+      if (result === 'Update') {
+        
       } 
     });
   }

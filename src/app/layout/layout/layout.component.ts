@@ -6,6 +6,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-layout',
@@ -14,12 +15,12 @@ import { Router } from '@angular/router';
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storageService: StorageService) {}
   onHomeClick() {
     this.router.navigate(['/home']);
   }
   onLogout(){
-    sessionStorage.removeItem('token');
+    this.storageService.removeToken();
     this.router.navigate(['/login']);
   }
 }

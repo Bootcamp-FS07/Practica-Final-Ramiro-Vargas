@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent {
   userForm: FormGroup;
   hide = false;
-  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private authService: AuthService,
+    private router: Router, private storageService: StorageService,
+    private userService: UserService) {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -28,19 +31,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.userForm.valid) {
-      this.authService.login(this.userForm.get('name')?.value, this.userForm.get('password')?.value).subscribe({
-        next: (response) => {
-          sessionStorage.setItem('token', response.access_token);
-          this.userService.getAll().subscribe({next: (users)=>{
-            const filteredUser  = users.filter(user => user.username === this.userForm.get('name')?.value);
-            sessionStorage.setItem('user', JSON.stringify(filteredUser[0]));
-            this.router.navigate([''])
-          }})
-        },
-        error: (err) => {
-          console.error('Error en el login', err);
-        }
-      });
+      this.authService.login(this.userForm.get('name')?.value, 
+      this.userForm.get('password')?.value);
     } else {
       console.log('Formulario no válido');
     }

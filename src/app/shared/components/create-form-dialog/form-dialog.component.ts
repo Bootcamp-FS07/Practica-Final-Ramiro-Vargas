@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { PostService } from '../../../services/post.service';
 import { Post } from '../../../models/post.model';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-form-dialog',
@@ -15,6 +16,7 @@ import { Post } from '../../../models/post.model';
 })
 export class CreateFormDialogComponent {
   readonly dialogRef = inject(MatDialogRef<CreateFormDialogComponent>);
+  private storageService = inject(StorageService);
   myForm: FormGroup;
   constructor(@Inject(MAT_DIALOG_DATA) public data: { title: string; textButton1: string, textButton2:string},
    private fb: FormBuilder, private service: PostService) {
@@ -24,12 +26,10 @@ export class CreateFormDialogComponent {
   }
 
   onSubmit() {
-    console.log(this.myForm.get("postText")?.value)
-    console.log(this.myForm.valid)
     if (this.myForm.valid) {
         var post = new Post();
         post.text=this.myForm.get("postText")?.value
-        const userId = JSON.parse(sessionStorage.getItem("user")?? "{}")
+        const userId = this.storageService.getUser();
         post.author = userId
         this.service.createPost(post).subscribe({
           next: (response) => {

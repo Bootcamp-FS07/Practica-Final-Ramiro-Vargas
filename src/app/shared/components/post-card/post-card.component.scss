@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: colors.$color-secondary;
+    background-color: colors.$color-primary;
     color: white;
 }
 
@@ -17,7 +17,7 @@ mat-card-header{
 }
 
 .divider {
-    background-color: white;
+    background-color: black;
     height: 1px;
 }
 

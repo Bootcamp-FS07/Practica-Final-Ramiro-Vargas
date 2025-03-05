@@ -5,7 +5,7 @@
             <button mat-menu-item (click)="openDeleteDialog('500ms', '100ms')">
                 <mat-icon>delete_outline</mat-icon>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="openUpdateDialog('500ms', '100ms')">
                 <mat-icon>edit</mat-icon>
             </button>
         </div>
@@ -15,9 +15,11 @@
         <p>
             {{postText}}
         </p>
+        <div id="comments">
+
+        </div>
+        <div id="form-create-comment">
+
+        </div>
     </mat-card-content>
-    <!--<mat-card-actions>
-        <button mat-button>View Profile</button>
-        <button mat-button>Send Message</button>
-    </mat-card-actions>-->
 </mat-card>
