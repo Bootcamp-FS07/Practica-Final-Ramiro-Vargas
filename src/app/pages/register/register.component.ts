@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -52,11 +54,28 @@ export class RegisterComponent {
             this.router.navigate(['/login']);
           },
           error: (err) => {
-            console.error('Error en el login', err);
+            this.openDialog('500', '250', 'Error en registro de usuario');
           },
         });
     } else {
       console.log('Formulario no válido');
     }
+  }
+
+  readonly dialog = inject(MatDialog);
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    text: string
+  ): void {
+    const dialogref = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {
+        title: text,
+      },
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 }

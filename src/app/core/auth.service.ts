@@ -21,7 +21,11 @@ export class AuthService {
     private router: Router
   ) {}
 
-  login(username: string, password: string) {
+  login(
+    username: string,
+    password: string,
+    callback: (timer1: string, timer2: string, text: string) => void
+  ) {
     var response = this.http.post<Login>(`${this.apiUrl}/auth/login`, {
       username,
       password,
@@ -40,6 +44,7 @@ export class AuthService {
         });
       },
       error: (error) => {
+        callback('500', '250', 'Invalid login credentials');
         this.router.navigate(['/login']);
       },
     });
