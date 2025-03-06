@@ -1,21 +1,33 @@
 <div class="login">
-    <div class="login-body">
-        <h1>Login</h1>
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="login-body">
-            <mat-form-field appearance="outline">
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="name" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
-              <button mat-icon-button matSuffix (click)="hide = !hide" aria-label="Toggle password visibility">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-            </mat-form-field>
-          
-            <button mat-raised-button type="submit">Login</button>
-            <a routerLink="/register" style="text-decoration: none; color: darkblue;">¿New user? Register here!</a>
-          </form>
-    </div>
+  <div class="login-body">
+    <h1>Login</h1>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="login-body">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          aria-label="Toggle password visibility"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit">Login</button>
+      <a routerLink="/register" style="text-decoration: none; color: darkblue"
+        >¿New user? Register here!</a
+      >
+    </form>
+  </div>
 </div>

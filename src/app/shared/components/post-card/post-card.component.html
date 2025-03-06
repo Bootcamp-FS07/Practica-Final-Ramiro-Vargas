@@ -1,45 +1,49 @@
 <mat-card class="post-card">
-    <mat-card-header>
-        <mat-card-title>User: {{ user.username}}</mat-card-title>
-        <div *ngIf="isAuthor" class="actions">
-            <button mat-menu-item (click)="openDeleteDialog('500ms', '100ms')">
-                <mat-icon>delete_outline</mat-icon>
-            </button>
-            <button mat-menu-item (click)="openUpdateDialog('500ms', '100ms')">
-                <mat-icon>edit</mat-icon>
-            </button>
+  <mat-card-header>
+    <mat-card-title>User: {{ user.username }}</mat-card-title>
+    <div *ngIf="isAuthor" class="actions">
+      <button mat-menu-item (click)="openDeleteDialog('500ms', '100ms')">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+      <button mat-menu-item (click)="openUpdateDialog('500ms', '100ms')">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-divider class="divider"></mat-divider>
+  <mat-card-content class="width-max no-padding">
+    <p class="post-text">
+      {{ postText }}
+    </p>
+    <div id="comments" class="comments">
+      <div *ngFor="let item of comments" class="col card">
+        <div class="row space-between width-max heigth-max">
+          <div>
+            User: <label>{{ item.author.username }}</label>
+          </div>
+          <div>
+            <label>{{ item.text }}</label>
+          </div>
         </div>
-    </mat-card-header>
-    <mat-divider class="divider"></mat-divider>
-    <mat-card-content class="width-max no-padding">
-        <p class="post-text">
-            {{postText}}
-        </p>
-        <div id="comments" class="comments">
-            <div *ngFor="let item of comments" class="col card">
-                <div class="row space-between width-max heigth-max">
-                    <div>
-                        User: <label>{{item.author.username}}</label>
-                    </div>
-                    <div>
-                        <label>{{item.text}}</label>
-                    </div>
-                </div>    
-                <mat-divider class="divider"></mat-divider>  
-            </div>
+        <mat-divider class="divider"></mat-divider>
+      </div>
+    </div>
+    <div id="form-create-comment" class="width-max heigth-max allign justify">
+      <form
+        [formGroup]="myForm"
+        class="form-create-comment heigth-max allign justify"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="width-max heigth-max allign justify">
+          <mat-form-field appearance="fill" class="width-max">
+            <mat-label class="allign">Ingrese el comentario</mat-label>
+            <input matInput formControlName="text" />
+          </mat-form-field>
         </div>
-        <div id="form-create-comment" class="width-max heigth-max allign justify">
-            <form [formGroup]="myForm" class="form-create-comment heigth-max allign justify" (ngSubmit)="onSubmit()">
-                <div class=" width-max heigth-max allign justify">
-                    <mat-form-field appearance="fill" class="width-max">
-                    <mat-label class="allign">Ingrese el comentario</mat-label>
-                    <input matInput formControlName="text">
-                    </mat-form-field>
-                </div>
-                <div class="heigth-max allign justify">
-                    <button mat-raised-button type="submit">Comment</button>
-                </div>  
-              </form>
+        <div class="heigth-max allign justify">
+          <button mat-raised-button type="submit">Comment</button>
         </div>
-    </mat-card-content>
+      </form>
+    </div>
+  </mat-card-content>
 </mat-card>

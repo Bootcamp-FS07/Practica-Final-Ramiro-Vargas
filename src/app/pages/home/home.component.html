@@ -1,17 +1,23 @@
 <div class="title">
-    <p>Posts Feed</p>
+  <p>Posts Feed</p>
 </div>
 <div class="content">
-    <div class="post" *ngFor="let item of posts">
-        <app-post-card
-            [postId]="item._id"
-            [postText]="item.text"
-            [user]= "item.author">
-        </app-post-card>
-    </div>
+  <div class="post" *ngFor="let item of posts">
+    <app-post-card
+      [postId]="item._id"
+      [postText]="item.text"
+      [user]="item.author"
+    >
+    </app-post-card>
+  </div>
 </div>
 <div>
-    <button mat-fab mat-menu-item class="floating-button" (click)="openCreateDialog('500ms', '100ms')">
-        <mat-icon>add</mat-icon>
-    </button>
+  <button
+    mat-fab
+    mat-menu-item
+    class="floating-button"
+    (click)="openCreateDialog('500ms', '100ms')"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

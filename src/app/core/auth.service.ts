@@ -9,33 +9,46 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private storageService: StorageService, 
-    private userService: UserService, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   login(username: string, password: string) {
-    var response = this.http.post<Login>(`${this.apiUrl}/auth/login`, { username, password });
-    response.subscribe(
-      {next: (login)=>{
+    var response = this.http.post<Login>(`${this.apiUrl}/auth/login`, {
+      username,
+      password,
+    });
+    response.subscribe({
+      next: (login) => {
         this.storageService.setToken(login.access_token);
-        this.userService.getAll().subscribe({next: (users)=>{
-        const filteredUser  = users.filter(user => user.username === username);
-        this.storageService.setUser(filteredUser[0]);
-        this.router.navigate([''])
-    }})
+        this.userService.getAll().subscribe({
+          next: (users) => {
+            const filteredUser = users.filter(
+              (user) => user.username === username
+            );
+            this.storageService.setUser(filteredUser[0]);
+            this.router.navigate(['']);
+          },
+        });
       },
-      error: (error)=>{
-        this.router.navigate(['/login'])
-      }
-      })
-    
+      error: (error) => {
+        this.router.navigate(['/login']);
+      },
+    });
   }
 
   register(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/auth/signup`, { username, password });
+    return this.http.post<User>(`${this.apiUrl}/auth/signup`, {
+      username,
+      password,
+    });
   }
 }

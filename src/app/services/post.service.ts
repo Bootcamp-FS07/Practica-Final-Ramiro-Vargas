@@ -5,7 +5,7 @@ import { Post } from '../models/post.model';
 import { environment } from '../../enviroments/enviroment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
   private apiUrl = environment.apiUrl;
@@ -16,27 +16,27 @@ export class PostService {
     return this.http.get<Post[]>(`${this.apiUrl}/post`);
   }
 
-  deletePost(id:string): Observable<Post> {
+  deletePost(id: string): Observable<Post> {
     return this.http.delete<Post>(`${this.apiUrl}/post/${id}`);
   }
 
-  createPost(post : Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/post`,{
-      "text":post.text,
-      "author":{
-        "username":post.author.username,
-        "_id":post.author._id
-      }
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.apiUrl}/post`, {
+      text: post.text,
+      author: {
+        username: post.author.username,
+        _id: post.author._id,
+      },
     });
   }
 
-  updatePost(post: Post): Observable<Post>{
-    return this.http.patch<Post>(`${this.apiUrl}/post/${post._id}`,{
-      "text":post.text,
-      "author":{
-        "username":post.author.username,
-        "_id":post.author._id
-      }
+  updatePost(post: Post): Observable<Post> {
+    return this.http.patch<Post>(`${this.apiUrl}/post/${post._id}`, {
+      text: post.text,
+      author: {
+        username: post.author.username,
+        _id: post.author._id,
+      },
     });
   }
 }
