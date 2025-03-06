@@ -9,7 +9,8 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class StorageService {
-    getUser(){
+  
+    getUser():User{
       return JSON.parse(sessionStorage.getItem("user")?? "{}")
     }
 

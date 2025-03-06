@@ -11,15 +11,35 @@
         </div>
     </mat-card-header>
     <mat-divider class="divider"></mat-divider>
-    <mat-card-content>
-        <p>
+    <mat-card-content class="width-max no-padding">
+        <p class="post-text">
             {{postText}}
         </p>
-        <div id="comments">
-
+        <div id="comments" class="comments">
+            <div *ngFor="let item of comments" class="col card">
+                <div class="row space-between width-max heigth-max">
+                    <div>
+                        User: <label>{{item.author.username}}</label>
+                    </div>
+                    <div>
+                        <label>{{item.text}}</label>
+                    </div>
+                </div>    
+                <mat-divider class="divider"></mat-divider>  
+            </div>
         </div>
-        <div id="form-create-comment">
-
+        <div id="form-create-comment" class="width-max heigth-max allign justify">
+            <form [formGroup]="myForm" class="form-create-comment heigth-max allign justify" (ngSubmit)="onSubmit()">
+                <div class=" width-max heigth-max allign justify">
+                    <mat-form-field appearance="fill" class="width-max">
+                    <mat-label class="allign">Ingrese el comentario</mat-label>
+                    <input matInput formControlName="text">
+                    </mat-form-field>
+                </div>
+                <div class="heigth-max allign justify">
+                    <button mat-raised-button type="submit">Comment</button>
+                </div>  
+              </form>
         </div>
     </mat-card-content>
 </mat-card>

@@ -1,18 +1,25 @@
 import { Component, inject, Input } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { MatCardModule } from '@angular/material/card';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatDivider, MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { PostService } from '../../../services/post.service';
 import { UpdateFormDialogComponent } from '../update-form-dialog/update-form-dialog/update-form-dialog.component';
 import { StorageService } from '../../../services/storage.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { CommentService } from '../../../services/comment.service';
+import { Comment } from '../../../models/comment.model';
 
 @Component({
   selector: 'app-post-card',
-  imports: [MatCardModule, MatDividerModule, MatIconModule,NgIf],
+  imports: [MatCardModule, MatDividerModule, MatIconModule,NgIf,ReactiveFormsModule,MatFormFieldModule,
+    MatButtonModule, MatInputModule, NgFor],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.scss'
 })
@@ -20,14 +27,33 @@ export class PostCardComponent {
   @Input() postId: string = '';
   @Input() postText: string = '';
   @Input() user: User = new User(0,"");
+  myForm: FormGroup;
   isAuthor = false;
-  constructor(private postService: PostService, private storageService: StorageService){
+  public comments: Comment[] = []
 
+  constructor(private postService: PostService, private storageService: StorageService, 
+    private commentService: CommentService){
+    this.myForm = new FormGroup({
+      text: new FormControl('')
+    });
   }
 
   ngOnInit(): void {
     const userId = this.storageService.getUser();
     this.isAuthor = this.user._id==userId._id
+    this.fetchComments();
+  }
+
+  fetchComments(){
+    this.commentService.getAllByPost(this.postId).subscribe({
+      next:(response)=>{
+        this.comments = response;
+        console.log(this.comments)
+      },
+      error:(error)=>{
+        console.log("error on request");
+      }
+    });
   }
 
   readonly dialog = inject(MatDialog);
@@ -75,5 +101,18 @@ export class PostCardComponent {
         
       } 
     });
+  }
+
+  onSubmit() {
+    this.commentService.createCommentOnPost(this.postId,this.myForm.get("text")?.value).subscribe(
+      {
+        next:(response)=>{
+          console.log(response);
+        },
+        error:(error)=>{
+          console.log("Error creating comment");
+        }
+      }
+    )
   }
 }
